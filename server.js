@@ -8,8 +8,6 @@ config();
 const app = express();
 const port = process.env.PORT ?? 3000;
 
-const VIDEO_URL_BASE = 'https://pixeldrain.com/api/file/'
-
 app.use(cors());
 
 async function fetchWithRetries(url, options, retries = 10) {
@@ -38,7 +36,7 @@ router.get('/video/:id', async (req, res) => {
     }
 
     try {
-        const response = await fetchWithRetries(`${VIDEO_URL_BASE}${id}`, {
+        const response = await fetchWithRetries(`${process.env.VIDEO_URL_BASE}${id}`, {
             method: 'GET',
             responseType: 'stream',
             headers: {
